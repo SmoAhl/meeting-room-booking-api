@@ -1,0 +1,16 @@
+{
+  "name": "meeting-room-booking-api",
+  "version": "1.0.0",
+  "description": "nodejs/express api for room booking",
+  "license": "ISC",
+  "author": "Simo Ahlqvist",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test",
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
