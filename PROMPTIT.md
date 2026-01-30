@@ -438,3 +438,45 @@ DELETE http://localhost:3000/rooms/room-1/bookings/<bookingId>
 `````
 
 # Vaihe 2
+
+## Copilot Inline Chat
+
+```
+"Add timestamp and service name meeting room API" server.js
+
+```
+
+## Copilot Agent
+
+```
+User: add tests in booking.tests.js for start time must be before end time and start time cannot be in the past
+
+GitHub Copilot: Using "Apply Patch"
+
+
+```
+
+```
+Files changed: booking.test.js
+Plan: add two domain tests that exercise `validateBookingWindow()` for `start >= end` and `start < now`.
+Edge cases considered: `start == end`, `start` just before `now`.
+How to test: run `npm test`.
+
+Added the two tests.
+
+Made changes.
+
+User: a light console logging middleware for all responses
+
+GitHub Copilot: Using "Apply Patch"
+
+
+```
+
+```
+Added a lightweight response logger to server.js.
+
+It logs: METHOD URL STATUS DURATION.
+
+Made changes.
+```
