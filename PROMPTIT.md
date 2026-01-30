@@ -442,7 +442,9 @@ DELETE http://localhost:3000/rooms/room-1/bookings/<bookingId>
 ## Copilot Inline Chat
 
 ```
-"Add timestamp and service name meeting room API" server.js
+Add timestamp and service name meeting room API" server.js
+
+Write simple and short README for this meeting room API. About, functionalities, techstack, endpoints, environment setup instructions, test instructions
 
 ```
 
