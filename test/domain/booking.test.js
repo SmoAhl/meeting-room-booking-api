@@ -84,3 +84,37 @@ test("non-overlapping bookings are allowed", () => {
 
   assert.doesNotThrow(() => assertNoOverlap(existing, startMs, endMs));
 });
+
+test("start time must be before end time", () => {
+  assert.throws(
+    () =>
+      validateBookingWindow(
+        "2026-01-31T10:00:00.000Z",
+        "2026-01-31T10:00:00.000Z",
+        baseNow,
+      ),
+    (error) => {
+      assert.ok(error instanceof AppError);
+      assert.equal(error.code, "VALIDATION_ERROR");
+      assert.equal(error.status, 400);
+      return true;
+    },
+  );
+});
+
+test("start time cannot be in the past", () => {
+  assert.throws(
+    () =>
+      validateBookingWindow(
+        "2026-01-30T11:59:59.000Z",
+        "2026-01-30T12:30:00.000Z",
+        baseNow,
+      ),
+    (error) => {
+      assert.ok(error instanceof AppError);
+      assert.equal(error.code, "VALIDATION_ERROR");
+      assert.equal(error.status, 400);
+      return true;
+    },
+  );
+});
