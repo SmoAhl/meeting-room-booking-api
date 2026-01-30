@@ -5,15 +5,29 @@ const app = express();
 
 app.use(express.json());
 
+app.use((req, res, next) => {
+  const start = Date.now();
+  res.on("finish", () => {
+    const durationMs = Date.now() - start;
+    console.log(
+      `${req.method} ${req.originalUrl} ${res.statusCode} ${durationMs}ms`,
+    );
+  });
+  next();
+});
+
 const routes = express.Router();
 routes.use(bookingsRouter);
 app.use(routes);
 
 app.get("/health", (req, res) => {
-  res.status(200).json({ status: "ok" });
+  res.status(200).json({
+    status: "ok",
+    timestamp: new Date().toISOString(),
+    service: "Meeting Room API",
+  });
 });
 
-// Centralized error handler (must be last)
 app.use((err, req, res, next) => {
   const status = Number.isInteger(err?.status) ? err.status : 500;
   const code = err?.code ?? "INTERNAL_ERROR";
@@ -24,8 +38,6 @@ app.use((err, req, res, next) => {
       : (err?.message ?? "Internal server error");
 
   res.status(status).json({
-    status,
-    message,
     error: {
       code,
       message,
